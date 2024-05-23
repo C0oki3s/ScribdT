@@ -1,4 +1,3 @@
-### ScribdT - focused on extracting data from Scribd
 
 # ScribdT - Focused on Extracting Data from Scribd
 
