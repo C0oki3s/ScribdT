@@ -1,3 +1,0 @@
-# Dependencies for ScribdT
-beautifulsoup4==4.9.3
-requests==2.25.1

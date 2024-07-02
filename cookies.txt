@@ -1,0 +1,1 @@
+_scribd_session=yourCookies It can be anywhere as we have --cookies flag
