@@ -25,7 +25,7 @@ pip install .
 To use ScribdT, run the ScribdTool command with the appropriate subcommand and options. The general usage format is:
 
 ```bash
-scribd_tool [-h] {documents,users,r} ...
+ScribdT [-h] {documents,users,r} ...
 ```
 
 ## Subcommands
@@ -50,7 +50,7 @@ To search for documents on Scribd, use the documents subcommand. The general for
 
 #### Example
 ```bash
-scribd_tool documents query="fucking warehouse" --filters filters.json --cookies cookies.txt
+ScribdT documents query="fucking warehouse" --filters filters.json --cookies cookies.txt
 ```
 This command searches Scribd for documents related to "fucking warehouse" and uses the provided filters and cookies.
 
@@ -63,7 +63,7 @@ To search for users on Scribd, use the `users` subcommand. The general format is
 
 #### Example
 ```bash
-scribd_tool users -ue=500 --db scribd_users.db
+ScribdT users -ue=500 --db scribd_users.db
 ```
 This command performs a brute force search for up to 500 users on Scribd and saves the results to scribd_users.db.
 
@@ -72,14 +72,14 @@ This command performs a brute force search for up to 500 users on Scribd and sav
 To retrieve data from a SQLite database, use the r subcommand. ScribdT supports retrieving users and searching by username.
 
 ```bash
-scribd_tool r -u --db DATABASE_FILE
+ScribdT r -u --db DATABASE_FILE
 ```
 This command retrieves all users from the specified SQLite database file.
 
 ## Retrieve by Username
 
 ```bash
-scribd_tool r --username=johndoe --db scribd_users.db
+ScribdT r --username=johndoe --db scribd_users.db
 ```
 This command retrieves information about the user with the username "johndoe" from the specified SQLite database file.
 
