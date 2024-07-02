@@ -90,7 +90,6 @@ pip install --upgrade .
 ```
 
 
+If you appreciate my efforts, I would greatly appreciate your support. Your encouragement keeps me motivated to explore more in cybersecurity and continue developing open-source tools. Thank you for your support!
 
-
-
-
+<a href="https://buymeacoffee.com/c0oki3s" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
