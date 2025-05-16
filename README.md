@@ -15,11 +15,20 @@ ScribdT is a powerful tool designed to search for documents or users on Scribd a
 ## Installation
 To install ScribdT, you need to clone the repository and install the package using `setup.py`.
 
-```bash
+```bash Linux
 git clone <repository-url>
 cd ScribdT
 pip install .
 ```
+
+```bash Windows
+git clone <repository-url>
+cd ScribdT
+py -3.12 -m venv venv
+pip install .
+python -m spacy download en_core_web_lg
+```
+
 ## Usage
 
 To use ScribdT, run the ScribdTool command with the appropriate subcommand and options. The general usage format is:
@@ -50,11 +59,33 @@ To search for documents on Scribd, use the documents subcommand. The general for
 
 #### Example
 ```bash
-ScribdT documents query="fucking warehouse" --filters filters.json --cookies cookies.txt
+ScribdT documents query="passport" --filters filters.json --cookies cookies.txt
 ```
-This command searches Scribd for documents related to "fucking warehouse" and uses the provided filters and cookies.
+This command searches Scribd for documents related to "passport" and uses the provided filters and cookies.
 
 > filters is a optional Tag as it uses to detect parameters for presidio-analyzer.
+
+--filters filters.json:
+
+- Optional argument. Provides additional filtering rules via a JSON file.
+
+- These filters can refine the search using custom logic.
+
+- Often used to integrate with presidio-analyzer for detecting sensitive entities like PII (Personally Identifiable Information).
+
+> The filters.json file might contain parameters like:
+
+```bash
+{
+"entities": ["PERSON", "PHONE_NUMBER", "EMAIL_ADDRESS"]
+}
+
+```
+
+--cookies cookies.txt:
+* Supplies a cookies file used to authenticate with Scribd.
+
+* _scribd_session=yourCookies It can be anywhere as we have --cookies flag
 
 
 ### User Bruteforce

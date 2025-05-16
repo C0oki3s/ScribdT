@@ -26,7 +26,6 @@ def process_entity(result, text, username, documentID):
 def download_and_process_document(document_id, session, entities_to_detect):
     initial_url = f"https://www.scribd.com/doc-page/download-receipt-modal-props/{document_id}"
     response = session.get(initial_url)
-    
     if response.status_code == 200:
         data = response.json()
         download_url = data['document']['download_url']
@@ -36,7 +35,7 @@ def download_and_process_document(document_id, session, entities_to_detect):
         headers = {
             'User-Agent': 'ScribdT Tool',
         }
-        
+        print("Downloading document", download_url_with_secret)
         response = session.get(download_url_with_secret, headers=headers)
 
         if response.status_code == 200:
