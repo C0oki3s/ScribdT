@@ -59,27 +59,33 @@ To search for documents on Scribd, use the documents subcommand. The general for
 
 #### Example
 ```bash
-ScribdT documents query="passport" --filters filters.json --cookies cookies.txt
+ScribdT documents query="passport" --filters filters.json --cookies cookies.txt --document-format auto
 ```
-This command searches Scribd for documents related to "passport" and uses the provided filters and cookies.
+This command searches Scribd for documents related to "passport", reads the best available text from TXT/PDF/DOCX responses, then runs regex validators, GLiNER, Presidio, and secret scanning before merging confidence scores.
 
-> filters is a optional Tag as it uses to detect parameters for presidio-analyzer.
+--document-format:
 
---filters filters.json:
+- Optional argument. Use `auto`, `txt`, `pdf`, or `docx`. The default is `auto`.
 
-- Optional argument. Provides additional filtering rules via a JSON file.
+--filters filters.json / --detectors:
 
-- These filters can refine the search using custom logic.
+- Optional argument. Configures detectors, entities, GLiNER labels, Presidio context, allow-list, and exclusion rules.
 
-- Often used to integrate with presidio-analyzer for detecting sensitive entities like PII (Personally Identifiable Information).
+- Useful for OSINT triage because users can keep the default `regex,gliner,presidio,secrets` pipeline or customize detectors with `--detectors` or the JSON config.
 
 > The filters.json file might contain parameters like:
 
-```bash
+```json
 {
-"entities": ["PERSON", "PHONE_NUMBER", "EMAIL_ADDRESS"]
+  "detectors": ["regex", "gliner", "presidio", "secrets"],
+  "entities": ["PERSON", "FIRST_NAME", "LAST_NAME", "PASSWORD_CANDIDATE", "EMAIL_ADDRESS"],
+  "score_threshold": 0.5,
+  "context": ["passport", "phone", "email", "id", "password"],
+  "gliner_labels": ["person", "first name", "last name", "username", "password", "api key"],
+  "allow_list": [],
+  "exclude_terms": [],
+  "exclude_regex": []
 }
-
 ```
 
 --cookies cookies.txt:
@@ -92,11 +98,13 @@ This command searches Scribd for documents related to "passport" and uses the pr
 
 To search for users on Scribd, use the `users` subcommand. The general format is:
 
-#### Example
+#### Examples
 ```bash
 ScribdT users -ue=500 --db scribd_users.db
+ScribdT users --user-id 123456 --db scribd_users.db
+ScribdT users --user-start 100000 --user-end 101000 --db scribd_users.db
 ```
-This command performs a brute force search for up to 500 users on Scribd and saves the results to scribd_users.db.
+The first command searches IDs 1 through 500. The second targets one known user ID. The third searches a specific ID range.
 
 ## Retrieve Saved Data
 

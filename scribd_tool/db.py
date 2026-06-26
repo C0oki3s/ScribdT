@@ -1,7 +1,9 @@
 import sqlite3
 
+
 class NoDocumentsFoundError(Exception):
     pass
+
 
 def create_db(filename):
     if filename:
@@ -9,8 +11,10 @@ def create_db(filename):
         c = conn.cursor()
         c.execute('''CREATE TABLE IF NOT EXISTS users
                      (id INTEGER PRIMARY KEY, user_id INTEGER, username TEXT, img_url TEXT)''')
+        c.execute("CREATE INDEX IF NOT EXISTS idx_users_user_id ON users(user_id)")
         conn.commit()
         conn.close()
+
 
 def insert_user(q, db_file):
     while True:
@@ -29,18 +33,18 @@ def insert_user(q, db_file):
             conn.close()
             q.task_done()
 
+
 def retrieve_data(args):
     conn = sqlite3.connect(args.db)
     c = conn.cursor()
-    if args.documents:
-        print("No document retrieval functionality.")
-    elif args.users:
+    if getattr(args, "users", False):
         c.execute("SELECT * FROM users")
         rows = c.fetchall()
         print("Users:")
         for row in rows:
             print(f" UserID: {row[1]}\n UserName: {row[2]}\n ImageURL: {row[3]} \n")
     conn.close()
+
 
 def search_by_username(username, db_file):
     conn = sqlite3.connect(db_file)
@@ -57,4 +61,3 @@ def search_by_username(username, db_file):
         print("No results found in users table.")
 
     conn.close()
-
