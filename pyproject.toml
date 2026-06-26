@@ -1,0 +1,27 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--tb=short -q"
+
+[tool.coverage.run]
+source = ["scribd_tool"]
+omit = ["tests/*", "setup.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = [
+    "E501",   # line too long — handled per-project
+    "E402",   # module-level import not at top (lazy imports in functions are intentional)
+    "F401",   # imported but unused — some re-exports are intentional
+]
+exclude = ["setup.py", "__pycache__"]
